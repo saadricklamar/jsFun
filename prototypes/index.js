@@ -1,3 +1,5 @@
+/*eslint-disable*/
+
 const { kitties } = require('./datasets/kitties');
 const { clubs } = require('./datasets/clubs');
 const { mods } = require('./datasets/mods');
@@ -34,9 +36,7 @@ const kittyPrompts = {
   sortByAge() {
     // Sort the kitties by their age
 
-    const result = kitties.sort(function(a,b) {
-        return a.age-b.age;
-    });
+    const result = kitties.sort((a,b) => a.age-b.age).reverse();
 
     return result;
 
@@ -58,9 +58,7 @@ const kittyPrompts = {
     // },
     // ...etc]
 
-    const result = kitties.filter(kitty => {
-        return kitty.age += 2;
-    });
+    const result = kitties.filter(kitty =>  kitty.age += 2);
     return result;
   }
 };
@@ -91,8 +89,14 @@ const clubPrompts = {
     //   Pam: ['Drama', 'Art', 'Chess'],
     //   ...etc
     // }
+    let clubMembers = {};
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    clubs.forEach(obj => {
+    obj.members.forEach(member => {
+        clubMembers[member] ? clubMembers[member].push(obj.club) : clubMembers[member] = [obj.club];
+        });
+    });
+    const result = clubMembers;
     return result;
 
     // Annotation:
@@ -127,8 +131,17 @@ const modPrompts = {
     //   { mod: 3, studentsPerInstructor: 10 },
     //   { mod: 4, studentsPerInstructor: 8 }
     // ]
+    let newMod = [];
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    mods.forEach(obj => {
+        let modRatio = {};
+        modRatio.mod = obj.mod;
+        modRatio.studentsPerInstructor = obj.students / obj.instructors
+        newMod.push(modRatio)
+    });
+
+
+    const result = newMod;
     return result;
 
     // Annotation:
@@ -162,8 +175,15 @@ const cakePrompts = {
     //    { flavor: 'yellow', inStock: 14 },
     //    ..etc
     // ]
+    let cakeFlavorStock = [];
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    cakes.forEach(obj => {
+        let refinedCakes = {};
+        refinedCakes.flavor = obj.cakeFlavor;
+        refinedCakes.inStock = obj.inStock;
+        cakeFlavorStock.push(refinedCakes);
+    });
+    const result = cakeFlavorStock;
     return result;
 
     // Annotation:
@@ -190,8 +210,10 @@ const cakePrompts = {
     // },
     // ..etc
     // ]
+   
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.filter(cake => 
+        cake.inStock > 0);
     return result;
 
     // Annotation:
@@ -201,8 +223,10 @@ const cakePrompts = {
   totalInventory() {
     // Return the total amount of cakes in stock e.g.
     // 59
+   
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.map(cake => cake.inStock)
+    .reduce((a, b) => a + b);
     return result;
 
     // Annotation:
@@ -213,8 +237,18 @@ const cakePrompts = {
     // Return an array of all unique toppings (no duplicates) needed to bake
     // every cake in the dataset e.g.
     // ['dutch process cocoa', 'toasted sugar', 'smoked sea salt', 'berries', ..etc]
+    let cakeToppings = [];
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    cakes.forEach(obj => {
+        obj.toppings.forEach(topping => {
+            if(cakeToppings.indexOf(topping) === -1) {
+                cakeToppings.push(topping);
+            }
+        })
+    });
+
+
+    const result = cakeToppings;
     return result;
 
     // Annotation:
@@ -267,7 +301,9 @@ const classPrompts = {
     //   { roomLetter: 'G', program: 'FE', capacity: 29 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = classrooms.filter(room => {
+        return room.program === 'FE';
+    });
     return result;
 
     // Annotation:
@@ -281,8 +317,27 @@ const classPrompts = {
     //   feCapacity: 110,
     //   beCapacity: 96
     // }
+    let feRooms = [];
+    let beRooms = [];
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+
+    const roomCapacities = classrooms.filter(classroom => {
+    if (classroom.program === 'FE') {
+        feRooms.push(classroom.capacity);
+    } else {
+    beRooms.push(classroom.capacity);
+    }
+    });
+
+    const capacity = {
+    feCapacity: feRooms.reduce((a, current) => a + current),
+    beCapacity: beRooms.reduce((a, current) =>
+    a + current)
+    }
+
+
+
+    const result = capacity;
     return result;
 
     // Annotation:
@@ -292,7 +347,9 @@ const classPrompts = {
   sortByCapacity() {
     // Return the array of classrooms sorted by their capacity (least capacity to greatest)
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = classrooms.sort((a, b) => 
+        a.capacity - b.capacity
+    );
     return result;
 
     // Annotation:
@@ -321,8 +378,15 @@ const breweryPrompts = {
   getBeerCount() {
     // Return the total beer count of all beers for every brewery e.g.
     // 40
+    let numOfBeers = [];
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+breweries.forEach(obj => {
+  numOfBeers.push(obj.beers.length);
+})
+
+let total = numOfBeers.reduce((a, b) => a + b);
+
+    const result = total;
     return result;
 
     // Annotation:
@@ -337,8 +401,16 @@ const breweryPrompts = {
     //  { name: 'Ratio Beerworks', beerCount: 5},
     // ...etc.
     // ]
+    let breweryNames = [];
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+breweries.forEach(obj => {
+  let newObj = {};
+  newObj.name = obj.name;
+  newObj.beerCount = obj.beers.length;
+  breweryNames.push(newObj);
+})
+
+    const result = breweryNames;
     return result;
 
     // Annotation:
@@ -349,8 +421,18 @@ const breweryPrompts = {
     // Return the beer which has the highest ABV of all beers
     // e.g.
     // { name: 'Barrel Aged Nature\'s Sweater', type: 'Barley Wine', abv: 10.9, ibu: 40 }
+    let beers = [];
+ let beersabv = [];
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+ breweries.forEach(obj => {
+  obj.beers.forEach(beer => {
+    beers.push(beer);
+    beersabv.push(beer.abv);
+  })
+})
+
+let highestBeerAbv = beers.find(obj => obj.abv === Math.max(...beersabv))
+    const result = highestBeerAbv;
     return result;
 
     // Annotation:
@@ -434,7 +516,7 @@ const turingPrompts = {
     //     Will: [1, 2, 3, 4]
     //   }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = ;
     return result;
 
     // Annotation:
@@ -555,16 +637,18 @@ const astronomyPrompts = {
 
   constellationsStarsExistIn() {
     // Return an array of the names of the constellations that the brightest stars are part of e.g.
-    // [ 'Canis Major',
-    //   'Carina',
-    //   'Boötes',
-    //   'Lyra',
-    //   'Auriga',
-    //   'Orion',
-    //   'Canis Minor',
-    //   'Eridanus',
-    //   'Orion',
-    //   'Centaurus' ]
+    
+    //  [ "Canis Major",
+    //    "Carina",
+    //    "Boötes",
+    //    "Auriga",
+    //    "Orion",
+    //    "Lyra", 
+    //    "Canis Minor", 
+    //    "The Plow", 
+    //    "Orion", 
+    //    "The Little Dipper" ]
+
 
     const result = 'REPLACE WITH YOUR RESULT HERE';
     return result;
@@ -691,11 +775,25 @@ const dinosaurPrompts = {
     Return an array of objects that contain the names of humans who have not been cast in a Jurassic Park movie (yet), their nationality, and their imdbStarMeterRating. The object in the array should be sorted alphabetically by nationality.
 
     e.g.
-
-    [ { name: 'Justin Duncan', nationality: 'Alien', imdbStarMeterRating: 0 },
-      { name: 'Tom Wilhoit', nationality: 'Kiwi', imdbStarMeterRating: 1 },
-      { name: 'Jeo D', nationality: 'Martian', imdbStarMeterRating: 0 },
-      { name: 'Karin Ohman', nationality: 'Swedish', imdbStarMeterRating: 0 } ]
+      [{
+        name: 'Justin Duncan',
+        nationality: 'Alien',
+        imdbStarMeterRating: 0
+      }, 
+      {
+        name: 'Karin Ohman',
+        nationality: 'Chinese',
+        imdbStarMeterRating: 0
+      },
+      {
+        name: 'Tom Wilhoit',
+        nationality: 'Kiwi',
+        imdbStarMeterRating: 1
+      }, {
+        name: 'Jeo D',
+        nationality: 'Martian',
+        imdbStarMeterRating: 0
+      }]
     */
 
     const result = 'REPLACE WITH YOUR RESULT HERE';
