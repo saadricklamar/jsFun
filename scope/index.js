@@ -1,3 +1,5 @@
+/*eslint-disable*/
+
 const scope = {
   exerciseA() {
     let personA = 'Paul';
@@ -38,7 +40,7 @@ const scope = {
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // Write your annotation here as a commentasdasdasdasd
   },
 
   exerciseB() {
@@ -343,11 +345,14 @@ const scope = {
     // Log E: hunger
    
     const result = [
-    { A: 75},
-    { B: 0},
-    { C: 55},
-    { D: 80},
-    { E: 55}
+    {A: 75},
+    {B: 0},
+    {C: 75},
+    {D: 80},
+    {A: 55},
+    {B: 0},
+    {C: 55},
+    {E: 55}
     ];
     return result;
 
@@ -392,12 +397,12 @@ const scope = {
     // Log F: amandaBynes
 
     const result = [
-    { A: 'ketchup sandwich'},
-    { D: 'gouda'},
-    { B: 'undefined'},
-    { C: 'not a mediocre sandwich'},
-    { E: 'not a mediocre sandwich'},
-    { F: 'National Treasure'}
+    {A: 'ketchup sandwich'},
+    {D: 'gouda'},
+    {B: undefined},
+    {C: 'not a mediocre sandwich'},
+    {E: 'not a mediocre sandwich'},
+    {F: 'National Treasure'}
     ];
     return result;
 
@@ -531,7 +536,14 @@ const scope = {
 
     // Log F: instructor
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [
+    { E: 'Pam'},
+    { A: 'Pam'},
+    { B: 'Pam'},
+    { C: 'Louisa'},
+    { D: 'Louisa'},
+    { F: 'Louisa'}
+    ];
     return result;
 
     // Annotation:
@@ -550,7 +562,11 @@ const scope = {
     putOnShoe();
     // Log C: shoe
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [
+    { B: 'flipflop'},
+    { A: undefined},
+    { C: 'flipflop'}
+    ];
     return result;
 
     // Annotation:
@@ -562,6 +578,7 @@ const scope = {
     function orderLunch() {
       if (lunch) {
         // Log A: lunch
+        console.log('er', lunch)
         let lunch = 'sandwich';
       }
 
@@ -570,13 +587,17 @@ const scope = {
       }
 
       // Log B: lunch
+
     }
 
     orderLunch();
 
     // Log C: lunch
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [
+    { B: 'soup'},
+    { C: 'soup'}
+    ];
     return result;
 
     // Annotation:
@@ -613,7 +634,14 @@ const scope = {
 
     myCrazyKidAntics(myKid);
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [
+    { A: 'Pandora'},
+    { B: ['Antigone', 'Pandora']},
+    { C: 'Mandy'},
+    { D: 'Antigone'},
+    { E: 'Pandora'}
+
+    ];
     return result;
 
     // Annotation:
@@ -640,7 +668,12 @@ const scope = {
     parentFunc();
     // Log D: myName
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [
+    { A: 'Rody'},
+    { B: 'RodyToy'},
+    { C: 'Tesla'},
+    { D: 'RodyToyDaniels'}
+    ];
     return result;
 
     // Annotation:
